@@ -4,6 +4,11 @@
 ### MicrosoftOffice ###
 *.tmp
 
+# My ignored extensions
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
 # Word temporary
 ~$*.doc*
 
