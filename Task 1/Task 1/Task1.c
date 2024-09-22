@@ -8,7 +8,7 @@
 * @param a - значение константы z
 * @return рассчитанное значение
 */
-double getA(double const x, double const y, double const z);
+double getA(const double x, const double y, const double z);
 
 /**
 * @brief рассчитывает выражение B по формуле
@@ -17,7 +17,7 @@ double getA(double const x, double const y, double const z);
 * @param a - значение константы z
 * @return рассчитанное значение
 */
-double getB(double const x, double const y, double const z);
+double getB(const double x, const double y, const double z);
 
 /**
 * @brief Точка входа в программу.
