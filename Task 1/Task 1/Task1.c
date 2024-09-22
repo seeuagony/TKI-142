@@ -1,47 +1,32 @@
 ﻿#include <stdio.h>
-#include <math.h>
-
 /**
-* @brief рассчитывает выражение A по формуле
-* @param x - значение константы х
-* @param y - значение константы y
-* @param a - значение константы a
+* @brief рассчитывает выражение getDistance по формуле
+* @param boatSpeed - значение константы скорости лодки
+* @param riverSpeed - значение константы скорости реки
+* @param time - значение константы времени
 * @return рассчитанное значение
 */
-
-double getA(double const x, double const y, double const z);
-
-/**
-* @brief рассчитывает выражение B по формуле
-* @param x - значение константы х
-* @param y - значение константы y
-* @param a - значение константы a
-* @return рассчитанное значение
-*/
-
-double getB(double const x, double const y, double const z);
+double getDistance(const double boatSpeed, const double riverSpeed, const int time);
 
 /**
 * @brief Точка входа в программу.
 * @return 0, в случае успеха.
 */
-
 int main() {
+    double boatSpeed, riverSpeed;
+    int time;
+    printf("Enter boat speed (km/h): ");
+    scanf_s("%lf", &boatSpeed);
+    printf("Enter river speed (km/h): ");
+    scanf_s("%lf", &riverSpeed);
+    printf("Enter total travel time (hours): ");
+    scanf_s("%d", &time);
+    double distance = getDistance(boatSpeed, riverSpeed, time);
+    printf("Total travel: %.2f km\n", getDistance(boatSpeed, riverSpeed, time));
 
-	const double x = 0.3;
-	const double y = 2.9;
-	const double z = 0.5;
-	printf("%f\n", getA(x, y, z));
-	printf("%f", getB(x, y, z));
-
-	return 0;
-
-
+    return 0;
 }
 
-double getA(double const x, double const y, double const z) {
-	return ((pow(z, 2) * x) + ((pow(exp(1.0), -x)) * (cos(y * x)))) / y*x - pow(exp(1.0), -x)*sin(y*x) + 1;
-}
-double getB(double const x, double const y, double const z) {
-	return (pow(exp(1.0), 2 * x) * log(z + x)) - (pow(y, 3 * x) * log(y - x));
+double getDistance(double boatSpeed, double riverSpeed, int time) {
+    return ((riverSpeed + boatSpeed) * time);
 }
