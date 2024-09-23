@@ -1,13 +1,13 @@
 ﻿#include <stdio.h>
 
 /**
-* @brief рассчитывает дистанцию, которую прошла лодка
-* @param boatSpeed - значение константы скорости лодки
-* @param riverSpeed - значение константы скорости реки
-* @param time - значение константы времени
+* @brief рассчитывает количество теплоты, которое было израсходовано
+* @param weight - значение константы веса тела
+* @param firstTemp - значение константы начальной температуры
+* @param secondTemp - значение константы конечной температуры
 * @return рассчитанное значение
 */
-double getDistance(const double boatSpeed, const double riverSpeed, const double time);
+double getHeatAmmount(const double weight, const double firstTemp, const double secondTemp);
 
 /**
 * @brief считывает вещественное число
@@ -20,20 +20,24 @@ double Input();
 * @return 0, в случае успеха.
 */
 int main() {
-    printf("Enter boat speed (km/h): ");
-    double boatSpeed = Input();
-    printf("Enter river speed (km/h): ");
-    double riverSpeed = Input();
-    printf("Enter total travel time (hours): ");
-    double time = Input();
-    printf("Total travel: %.2f km\n", getDistance(boatSpeed, riverSpeed, time));
+    printf("Enter weight: ");
+    double weight = Input();
+    printf("Enter initial temperature: ");
+    double firstTemp = Input();
+    printf("Enter the final temperature: ");
+    double secondTemp = Input();
+    printf("Heat ammount of steel: %.2f", getHeatAmmount(weight, firstTemp, secondTemp));
 
     return 0;
 }
 
-double getDistance(const double boatSpeed, const double riverSpeed, const double time) {
-    return ((riverSpeed + boatSpeed) * time);
+
+double getHeatAmmount(const double weight, const double firstTemp, const double secondTemp)
+{
+    const double steelConst = 500;
+    return steelConst*weight * (secondTemp-firstTemp);
 }
+
 double Input() {
     double value = 0.0;
     int result = scanf_s("%lf", &value);
