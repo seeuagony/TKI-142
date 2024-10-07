@@ -43,17 +43,13 @@ int main(void) {
     double b = input();
     printf("Enter c: ");
     double c = input();
-
     int check = 0; 
-
     printf("Select the type of operation: \n1 - Calculate the number of negative numbers\n2 - Calculate the absolute sum\n");
     scanf("%d", &check); 
-
     if (check != 1 && check != 2) { 
         printf("Operation selection error!\n");
         return 1; 
     }
-
     switch (check) {
         case 1: 
             printf("Number of negative numbers = %d\n", countNegatives(a, b, c));
