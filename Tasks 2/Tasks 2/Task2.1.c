@@ -35,11 +35,17 @@ int main() {
 	}
 	printf("The ammount of negative numbers: %d\n", negativeCount);
 	printf("The value of the absolute sum: %lf\n", getAbsSum(a, b, c));
+
+	return 0;
 }
 double getAbsSum(const double a, const double b, const double c) {
 	return abs(a + b + c);
 }
 
+/**
+ * @brief точка входа в программу
+ * @return 0 в случае успехa
+ */
 double input() {
 	double value = 0.0;
 	int result = scanf_s("%lf", &value);
