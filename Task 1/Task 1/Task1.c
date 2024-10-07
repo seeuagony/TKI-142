@@ -1,48 +1,51 @@
 ﻿#include <stdio.h>
-
-/**
-* @brief рассчитывает количество теплоты, которое было израсходовано
-* @param weight - значение константы веса тела
-* @param firstTemp - значение константы начальной температуры
-* @param secondTemp - значение константы конечной температуры
-* @return рассчитанное значение
-*/
-double getHeatAmmount(const double weight, const double firstTemp, const double secondTemp);
+#include <stdlib.h>
 
 /**
 * @brief считывает вещественное число
 * @return возвращает вещественное число
 */
-double Input();
+double input();
 
 /**
-* @brief Точка входа в программу.
-* @return 0, в случае успеха.
+* @brief рассчитывает значение абсолютной суммы трех чисел
+* @param a - значение константы a
+* @param b - значение константы b
+* @param c - значение константы c
+* @return рассчитанное значение
 */
+double getAbsSum(const double a, const double b, const double c);
+
 int main() {
-    printf("Enter weight: ");
-    double weight = Input();
-    printf("Enter initial temperature: ");
-    double firstTemp = Input();
-    printf("Enter the final temperature: ");
-    double secondTemp = Input();
-    printf("Heat ammount of steel: %.2f", getHeatAmmount(weight, firstTemp, secondTemp));
-
-    return 0;
+	int negativeCount = 0;
+	printf("Enter a: ");
+	double a = input();
+	printf("Enter b: ");
+	double b = input();
+	printf("Enter c: ");
+	double c = input();
+	if (a < 0) {
+		negativeCount++;
+	}
+	if (b < 0) {
+		negativeCount++;
+	}
+	if (c < 0) {
+		negativeCount++;
+	}
+	printf("The ammount of negative numbers: %d\n", negativeCount);
+	printf("The value of the absolute sum: %lf\n", getAbsSum(a,b,c));
+}
+double getAbsSum(const double a, const double b, const double c) {
+	return abs(a+b+c);
 }
 
-
-double getHeatAmmount(const double weight, const double firstTemp, const double secondTemp)
-{
-    const double steelConst = 500;
-    return steelConst*weight * (secondTemp-firstTemp);
-}
-
-double Input() {
-    double value = 0.0;
-    int result = scanf_s("%lf", &value);
-    if (result != 1) {
-        perror("Invalid input!");
-    }
-    return value;
+double input() {
+	double value = 0.0;
+	int result = scanf_s("%lf", &value);
+	if (result != 1) {
+		perror("Invalid input!!!");
+		abort();
+	}
+	return value;
 }
