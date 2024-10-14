@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <errno.h>
-
+/** 
+ * @param getNegatives - выводит количество отрицательных чисел
+ * @param getAbsoluteSum - выводит значение абсолютной суммы
+ */
 typedef enum {
-    getNegatives,
-    getAbsoluteSum
-} opType;
+    getNegatives = 1,
+    getAbsoluteSum = 2
+};
 
 /**
  * @brief считает число отрицательных чисел
@@ -38,12 +41,12 @@ double input(void);
  */
 int main(void) {
     printf("Enter a: ");
-    double a = input();
+    const double a = input();
     printf("Enter b: ");
-    double b = input();
+    const double b = input();
     printf("Enter c: ");
-    double c = input();
-    int check = 0; 
+    const double c = input();
+    const int check = 0; 
     printf("Select the type of operation: \n1 - Calculate the number of negative numbers\n2 - Calculate the absolute sum\n");
     scanf("%d", &check); 
     if (check != 1 && check != 2) { 
@@ -51,16 +54,19 @@ int main(void) {
         return 1; 
     }
     switch (check) {
-        case 1: 
+        case getNegatives: {
             printf("Number of negative numbers = %d\n", countNegatives(a, b, c));
             break;
-        case 2: 
+        }
+        case getAbsoluteSum: {
             printf("Absolute sum = %d\n", absoluteSum(a, b, c));
             break;
-        default:
+        }
+        default: {
         errno = ERANGE;
         perror("Function not mentioned");
         exit(EXIT_FAILURE);
+        }
     }
     return 0;
 }
