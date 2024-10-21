@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <float.h>
 #include <math.h>
+#include <stdbool.h>
 
 /**
  * @brief проверка введенного значения
@@ -47,7 +48,7 @@ double secondArea(const double sHouseHeight, const double sHouseWidth);
  * @param sHouseWidth значение переменной ширины дома
  * @return возвращает площадь первого дома
  */
-int houseFits(const double siteHeight, const double siteWidth, const double fHouseHeight, const double fHouseWidth, const double sHouseHeight, const double sHouseWidth);
+bool houseFits(const double siteHeight, const double siteWidth, const double fHouseHeight, const double fHouseWidth, const double sHouseHeight, const double sHouseWidth);
 
 /**
  * @brief точка входа в программу
@@ -63,7 +64,7 @@ int main(void) {
     printf("Введите длину и ширину второго дома\n");
     const double sHouseHeight = Input();
     const double sHouseWidth = Input();
-      if (houseFits(siteHeight, siteWidth, fHouseHeight, fHouseWidth, sHouseHeight, sHouseWidth)) {
+    if (houseFits(siteHeight, siteWidth, fHouseHeight, fHouseWidth, sHouseHeight, sHouseWidth)) {
         printf("Дома помещаются на участок.\n");
     } 
     else {
@@ -105,7 +106,7 @@ double siteArea(const double siteHeight, const double siteWidth) {
     return siteHeight * siteWidth;
 }
 
-int houseFits(const double siteHeight, const double siteWidth, const double fHouseHeight, const double fHouseWidth, const double sHouseHeight, const double sHouseWidth) {
+bool houseFits(const double siteHeight, const double siteWidth, const double fHouseHeight, const double fHouseWidth, const double sHouseHeight, const double sHouseWidth) {
     double fHouseArea = firstArea(fHouseHeight, fHouseWidth);
     double sHouseArea = secondArea(sHouseHeight, sHouseWidth);
     double finalSiteArea = siteArea(siteHeight, siteWidth);
@@ -113,14 +114,14 @@ int houseFits(const double siteHeight, const double siteWidth, const double fHou
     if (fHouseArea + sHouseArea < finalSiteArea) {
         // оба дома вдоль стены участка
         if ((fHouseHeight + sHouseHeight <= siteHeight && fHouseWidth <= siteWidth && sHouseWidth <= siteWidth) || (fHouseWidth + sHouseWidth <= siteWidth && fHouseHeight <= siteHeight && sHouseHeight <= siteHeight)) {
-            return 1;
+            return true;
         }
         //один из домов повернут на 90 градусов
         if ((fHouseHeight + sHouseWidth <= siteHeight && fHouseWidth <= siteWidth && sHouseHeight <= siteWidth) || (fHouseWidth + sHouseHeight <= siteWidth && fHouseHeight <= siteHeight && sHouseWidth <= siteHeight)) {
-            return 1;
+            return true;
         }
     }
     else {
-        return 0;
+        return false;
     }
 }
