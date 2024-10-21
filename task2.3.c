@@ -1,12 +1,21 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <float.h>
+#include <math.h>
 
 /**
  * @brief проверка введенного значения
  * @return возвращает значение
  */
 double Input(void);
+
+/**
+ * @brief Проверяет корректность введённого значения
+ * @param value Значение для проверки
+ * @return Возвращает ошибку в случае неверно введенного значения
+ */
+void checkValue(double value);
 
 /**
  * @brief рассчитывает площадь участка
@@ -64,16 +73,24 @@ int main(void) {
     return 0;
 }
 
-double Input(void) 
-{ 
-    double value; 
-    int result = scanf("%lf", &value);
-    if (result != 1 || value < 0) {
-        errno = EIO;
-        perror("Input error!!!\n");
-        exit(EXIT_FAILURE);
-    }
-    return value;
+double Input(void) {
+    double value = 0.0;
+	int result = scanf("%lf", &value);
+	if (result != 1)
+	{
+		errno = EIO;
+		perror("Input error!");
+		exit(EXIT_FAILURE);
+	}
+	checkValue(value);
+	return value;
+}
+void checkValue(double value) {
+	if (value < DBL_EPSILON) {
+		errno = EIO;
+		perror("Input error: Value must be non-negative!");
+		exit(EXIT_FAILURE);
+	}
 }
 
 double firstArea(const double fHouseHeight, const double fHouseWidth) {
