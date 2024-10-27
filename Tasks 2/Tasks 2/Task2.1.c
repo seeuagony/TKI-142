@@ -36,6 +36,12 @@ int absoluteSum(double const a, double const b, double const c);
 double input(void);
 
 /**
+ * @brief Ввод полученного целого значения
+ * @return Возвращает полученное целое значение
+ */
+int inputInt(void);
+
+/**
  * @brief точка входа в программу
  * @return 0 в случае успеха
  */
@@ -46,14 +52,9 @@ int main(void) {
     const double b = input();
     printf("Enter c: ");
     const double c = input();
-    const int check = 0; 
     printf("Select the type of operation: \n1 - Calculate the number of negative numbers\n2 - Calculate the absolute sum\n");
-    scanf("%d", &check); 
-    if (check != 1 && check != 2) { 
-        printf("Operation selection error!\n");
-        return 1; 
-    }
-    switch (check) {
+    int operation = inputInt();
+    switch (operation) {
         case getNegatives: {
             printf("Number of negative numbers = %d\n", countNegatives(a, b, c));
             break;
@@ -92,4 +93,15 @@ int countNegatives(double const a, double const b, double const c) {
 
 int absoluteSum(double const a, double const b, double const c) {
     return fabs(a + b + c);
+}
+
+int inputInt(void) {
+	int i = 0;
+	int check = scanf_s("%d", &i);
+	if (check != 1) {
+		errno = EIO;
+		perror("Input error!!!\n");
+		exit(EXIT_FAILURE);
+	}
+	return i;
 }
