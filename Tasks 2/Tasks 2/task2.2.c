@@ -1,5 +1,5 @@
-#include <stdio.h>
 #define _USE_MATH_DEFINES
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h> 
 #include <errno.h>
@@ -43,7 +43,7 @@ int main(void) {
 
 double input(void) 
 { 
-    double value; 
+    double value = 0.0; 
     int result = scanf("%lf", &value);
     if (result != 1) {
         errno = EIO;
