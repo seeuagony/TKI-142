@@ -19,7 +19,6 @@ double input(void);
 */
 void intervalCheck(const double iStart, const double iEnd);
 
-
 /**
 * @brief проверяет значение шага
 * @param step значение шага
@@ -27,6 +26,11 @@ void intervalCheck(const double iStart, const double iEnd);
 */
 void stepCheck(const double step);
 
+/**
+* @brief ввод значения шага с проверкой на положительность
+* @return возвращает значение шага
+*/
+double inputStep(void);
 
 /**
 * @brief проверка значения x
@@ -40,7 +44,7 @@ bool xCheck(const double x);
 * @param x значение переменной x
 * @return возвращает значение функции в случае успеха
 */
-double getY(double x);
+double getY(const double x);
 
 /**
 * @brief Точка входа в программу
@@ -52,53 +56,55 @@ int main(void) {
     const double iEnd = input();
     intervalCheck(iStart, iEnd);
     printf("Введите значение шага: ");
-    const double step = input();
-    stepCheck(step);
+    const double step = inputStep();
     for (double x = iStart; x <= iEnd + DBL_EPSILON; x += step) {
         if (!xCheck(x)) {
-            printf("Неверно введено значение x!");
-        }
-        else {
+            printf("Недопустимое значение x: %.3lf\n", x);
+        } else {
             printf("x = %.3lf, y = %.3lf\n", x, getY(x));
         }
     }
 
-
+    return 0;
 }
 
 double input(void) {
     double value = 0.0;
-	int result = scanf("%lf", &value);
-	if (result != 1)
-	{
-		errno = EIO;
-		perror("Input error!");
-		exit(EXIT_FAILURE);
-	}
-	xCheck(value);
-	return value;
+    int result = scanf("%lf", &value);
+    if (result != 1) {
+        errno = EIO;
+        perror("Input error!");
+        exit(EXIT_FAILURE);
+    }
+    return value;
 }
 
 void intervalCheck(const double iStart, const double iEnd) {
-	if (iEnd - iStart < DBL_EPSILON) {
-		errno = EIO;
-		perror("Неверно введён интервал!!!");
-		exit(EXIT_FAILURE);
-	}
+    if (iEnd - iStart < DBL_EPSILON) {
+        errno = EIO;
+        perror("Неверно введён интервал!!!");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void stepCheck(const double step) {
-	if (step <= DBL_EPSILON) {
-		errno = EIO;
-		perror("Неверно введён шаг!!!");
-		exit(EXIT_FAILURE);
-	}
+    if (step <= DBL_EPSILON) {
+        errno = EIO;
+        perror("Неверно введён шаг!!!");
+        exit(EXIT_FAILURE);
+    }
+}
+
+double inputStep(void) {
+    double step = input();
+    stepCheck(step);
+    return step;
 }
 
 bool xCheck(const double x) {
-	return x > DBL_EPSILON;
+    return x < 1;
 }
 
 double getY(const double x) {
-    return (sqrt(1-x) - tan(x));
+    return sqrt(1 - x) - tan(x);
 }
