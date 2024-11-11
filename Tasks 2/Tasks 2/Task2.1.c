@@ -52,7 +52,7 @@ int main(void) {
     const double b = input();
     printf("Enter c: ");
     const double c = input();
-    printf("Select the type of operation: \n1 - Calculate the number of negative numbers\n2 - Calculate the absolute sum\n");
+     printf("Select the type of operation: \n%d - Calculate the number of negative numbers\n%d - Calculate the absolute sum\n", (int)getNegatives, (int)getAbsoluteSum);
     int operation = inputInt();
     switch (operation) {
         case getNegatives: {
