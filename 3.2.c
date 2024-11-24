@@ -108,8 +108,8 @@ int isPositiveInt(void) {
     return value;
 }
 
-double nextTerm(double current, int k) {
-    return current * -1.0 * (2.0 + k) / (k + 1);
+double nextTerm(const double current, const int k) {
+    return current * -1.0 * (2.0 + k) / (k + 1.0);
 }
 
 double getSum(const int n) {
