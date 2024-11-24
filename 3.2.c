@@ -6,63 +6,63 @@
 #include <float.h>
 
 /**
- * @brief проверка введенного значения
- * @return возвращает значение
+ * @brief Проверка введенного значения
+ * @return Возвращает значение
  */
 double input(void);
 
 /**
- * @brief Считывает введеное целое значение
- * @return возвращает считанное проверенное значение, иначе - ошибка
+ * @brief Считывает введенное целое значение
+ * @return Возвращает считанное проверенное значение, иначе - ошибка
  */
 int intInput(void);
 
 /**
  * @brief Выводит сумму n элементов
- * @param n - числа элементов последовательности для суммирования
- * @return - рассчитанное значение
+ * @param n - количество элементов последовательности для суммирования
+ * @return Рассчитанное значение
  */
 double getSum(const int n);
 
 /**
- * @brief рассчитывает значение суммы всех членов последовательности, не меньше заданного числа е
- * @param n кол-во элементов последовательности
- * @param e значение заданного числа е
- * @return рассчитанное значение суммы
+ * @brief Рассчитывает значение суммы всех членов последовательности, по модулю не меньше заданного числа e
+ * @param e Значение заданного числа e
+ * @return Рассчитанное значение суммы
  */
-double getLessThanE(const int n, const double e);
+double getGreaterThanE(const double e);
 
 /**
- * @brief проверяет считанное число на положительность
- * @return возвращает считанное проверенное значение, иначе - ошибка
+ * @brief Проверяет, что введенное целое число положительное
+ * @return Возвращает считанное проверенное значение, иначе - ошибка
  */
 int isPositiveInt(void);
 
 /**
- * @brief проверяет считанное число на положительность
- * @return возвращает считанное проверенное значение, иначе - ошибка
+ * @brief Проверяет, что введенное число положительное
+ * @return Возвращает считанное проверенное значение, иначе - ошибка
  */
 double isPositiveDouble(void);
 
 /**
- * @brief рассчитывает следующий рекуррентный член последовательности
- * @param currentTerm текущий член последовательности
- * @param k текущий индекс элемента
- * @return выводит рассчитанный следующий рекуррентный член последовательности
+ * @brief Рассчитывает следующий рекуррентный член последовательности
+ * @param currentTerm Текущий член последовательности
+ * @param k Текущий индекс элемента
+ * @return Выводит рассчитанный следующий рекуррентный член последовательности
  */
-double nextTerm(double current, int a);
+double nextTerm(double current, int k);
 
 /**
- * @brief точка входа в программу 
+ * @brief Точка входа в программу 
  * @return 0 в случае успеха
  */
 int main(void) {
-    printf("Введите количество элементов последовательности: ");
+    printf("Введите количество элементов последовательности (n): ");
     const int n = isPositiveInt();
-    printf("Введите значение e: ");
+    printf("Введите значение e (точность для модуля): ");
     const double e = isPositiveDouble();
-    printf("Сумма первых %d членов последовательности: %.3lf\n", n, getSum(n));
-    printf("Сумма членов последовательности, по модулю не меньше числа e: %.3lf\n", getLessThanE(n, e));
+
+    printf("Сумма первых %d членов последовательности: %.10lf\n", n, getSum(n));
+    printf("Сумма членов последовательности, по модулю не меньше числа %.10lf: %.10lf\n", e, getGreaterThanE(e));
 
     return 0; 
 }
@@ -72,7 +72,16 @@ double input(void) {
     int result = scanf("%lf", &value);
     if (result != 1) {
         errno = EIO;
-        perror("Input error!");
+        perror("Ошибка ввода!");
+        exit(EXIT_FAILURE);
+    }
+    return value;
+}
+double isPositiveDouble(void) {
+    double value = input();
+    if (value <= DBL_EPSILON) {
+        errno = EINVAL;
+        perror("Число слишком маленькое или отрицательное!");
         exit(EXIT_FAILURE);
     }
     return value;
@@ -83,56 +92,44 @@ int intInput(void) {
     int result = scanf("%d", &value);
     if (result != 1) {
         errno = EIO;
-        perror("Input error");
+        perror("Ошибка ввода");
         exit(EXIT_FAILURE);
     }
-
     return value;
 }
 
 int isPositiveInt(void) {
     int value = intInput();
-    if (value < 0) {
+    if (value <= 0) {
         errno = EINVAL;
-        perror("Input is negative!");
-        exit(EXIT_FAILURE);
-    }
-    return value;
-}
-
-double isPositiveDouble(void) {
-    double value = input();
-    if (value < DBL_EPSILON) {
-        errno = EINVAL;
-        perror("Input is too small or negative!");
+        perror("Число должно быть положительным!");
         exit(EXIT_FAILURE);
     }
     return value;
 }
 
 double nextTerm(double current, int k) {
-    return current * -(1.0 + k) / (k + 1);
+    return current * -1.0 * (2.0 + k) / (k + 1);
 }
 
 double getSum(const int n) {
     double sum = 0.0;
     double currentTerm = 1.0;
-    for (int k = 0; k <= n; k++) {
-        sum += currentTerm;
+    for (int k = 0; k < n; k++) {
         currentTerm = nextTerm(currentTerm, k);
+        sum += currentTerm;
     }
     return sum;
 }
 
-double getLessThanE(const int n, const double e) {
+double getGreaterThanE(const double e) {
     double sum = 0.0;
     double currentTerm = 1.0;
-    for (int k = 0; k <= n; k++) {
-        if (fabs(currentTerm) < e) {
-            break; 
-        }
-        sum += currentTerm;
+    int k = 1;
+    while (fabs(currentTerm) >= e+DBL_EPSILON) {
         currentTerm = nextTerm(currentTerm, k);
+        sum += currentTerm;
+        k++;
     }
     return sum;
 }
