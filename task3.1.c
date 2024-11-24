@@ -102,7 +102,14 @@ double inputStep(void) {
 }
 
 bool xCheck(const double x) {
-    return x < 1;
+    if (x >= 1) {
+        return false;
+    }
+    if (fabs(cos(x)) < DBL_EPSILON) { //тангенс будет неопределён, если его косинус будет равен нулю
+        return false;
+    }
+
+    return true;
 }
 
 double getY(const double x) {
