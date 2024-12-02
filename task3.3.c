@@ -78,7 +78,7 @@ double input(void) {
     if (result != 1) {
         errno = EIO;
         perror("Ошибка ввода!");
-        eait(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     return value;
 }
@@ -103,7 +103,7 @@ double getFunc(double a) {
     return (exp(a) - exp(-a)) / 2.0;
 }
 
-double neatElement(const double previous, const double a, const int n) {
+double nextElement(const double previous, const double a, const int n) {
     return previous * (a * a) / ((2 * n) * (2 * n + 1));
 }
 
