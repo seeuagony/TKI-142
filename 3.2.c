@@ -113,22 +113,22 @@ double nextTerm(const double current, const int k) {
 }
 
 double getSum(const int n) {
-    double sum = 1.0;
+    double sum = 0.0;
     double currentTerm = 1.0;
     for (int k = 0; k < n; k++) {
-        currentTerm = nextTerm(currentTerm, k);
         sum += currentTerm;
+        currentTerm = nextTerm(currentTerm, k);
     }
     return sum;
 }
 
 double getGreaterThanE(const double e) {
-    double sum = 1.0;
+    double sum = 0.0;
     double currentTerm = 1.0;
     int k = 1;
     while (fabs(currentTerm) >= e+DBL_EPSILON) {
-        currentTerm = nextTerm(currentTerm, k);
         sum += currentTerm;
+        currentTerm = nextTerm(currentTerm, k);
         k++;
     }
     return sum;
