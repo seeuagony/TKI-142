@@ -49,7 +49,7 @@ double isPositiveDouble(void);
  * @param k Текущий индекс элемента
  * @return Выводит рассчитанный следующий рекуррентный член последовательности
  */
-double nextTerm(double current, int k);
+double nextTerm(const double current, const int k);
 
 /**
  * @brief Точка входа в программу 
