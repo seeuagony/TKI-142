@@ -99,7 +99,7 @@ void stepCheck(const double step) {
     }
 }
 
-double getFunc(double a) {
+double getFunc(const double a) {
     return (exp(a) - exp(-a)) / 2.0;
 }
 
