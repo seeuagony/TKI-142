@@ -158,7 +158,7 @@ int* createArr(const size_t n) {
 void checkArr(const int* arr) {
     if (arr == NULL) {
         errno = ENOMEM;
-        perror("Ошибка памяти, адрес на массив оказался указателя нелевым");
+        perror("Ошибка памяти, адрес указателя на массив оказался нулевым");
         exit(EXIT_FAILURE);
     }
 }
