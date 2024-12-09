@@ -60,14 +60,14 @@ void fillArrManually(int* arr, const size_t n);
  * @param n количество элементов в массиве
  * @return массив, заполненный случайными числами
  */
-void fillArrRandomly(int* arr, size_t n);
+void fillArrRandomly(int* arr, const size_t n);
 /**
  * @brief функция, которая суммирует все числа, состоящие из 1 цифры
  * @param arr массив
  * @param n количество элементов в массиве
  * @return сумму чисел из 1 цифры
  */
-void oneDigitSum(int* arr, size_t n);
+void oneDigitSum(const int* arr, const size_t n);
 
 /**
  * @brief функция, которая копирует элементы из одного массива в новый
@@ -75,7 +75,7 @@ void oneDigitSum(int* arr, size_t n);
  * @param n размер массива
  * @return новый копированный массив, который повторяет исходный
  */
-int* copyArr(int* arr, size_t n);
+int* copyArr(const int* arr, const size_t n);
 
 /**
  * @brief функция, которая заменяет элементы между минимальным и максимальным значением
@@ -91,7 +91,7 @@ void reverseBetweenMinAndMax(int* arr, size_t n);
  * @param x число, меньше которого должно быть произведение пары
  * @return номер последней пары
  */
-void lessThanX(int* arr, size_t n, const int x);
+void lessThanX(const int* arr, size_t n, const int x);
 
 int main(void) {
     printf("Введите размер массива: ");
@@ -172,14 +172,14 @@ void printArr(const int* arr, const size_t n) {
     }
 }
 
-void fillArrManually(int* arr, size_t n) {
+void fillArrManually(int* arr, const size_t n) {
     checkArr(arr);
     for (size_t i = 0; i < n; i++) {
         printf("Введите элемент %zu: ", i + 1);
         arr[i] = input();
     }
 }
-void fillArrRandomly(int* arr, size_t n) {
+void fillArrRandomly(int* arr, const size_t n) {
     checkArr(arr);
     printf("Введите минимальное значение интервала \n");
     int min = input();
@@ -195,7 +195,7 @@ void fillArrRandomly(int* arr, size_t n) {
         arr[i] = (rand() % (max - min + 1)) + min;
     }
 }
-void oneDigitSum(int* arr, size_t n) {
+void oneDigitSum(const int* arr, const size_t n) {
     int sum = 0;
     for (size_t i = 0; i < n; i++) {
         if (arr[i] >= 0 && arr[i] < 10) {
@@ -205,7 +205,7 @@ void oneDigitSum(int* arr, size_t n) {
     printf("%d\n", sum);
 }
 
-int* copyArr(int* arr, size_t n) {
+int* copyArr(const int* arr, const size_t n) {
     int* copiedArr = createArr(n);
     checkArr(copiedArr);
     for (size_t i = 0; i < n; i++) {
@@ -246,7 +246,7 @@ void reverseBetweenMinAndMax(int* arr, size_t n) {
     printArr(arr, n);
 }
 
-void lessThanX(int* arr, size_t n, const int x) {
+void lessThanX(const int* arr, size_t n, const int x) {
     checkArr(arr);
     int* copiedArr = copyArr(arr, n);
     int lastPairIndex = -1;
