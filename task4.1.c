@@ -119,8 +119,11 @@ int main(void) {
     printArr(arr, n);
     printf("\nСумма чисел, состоящих из 1 цифры: ");
     oneDigitSum(arr, n);
+    int* copiedArr = copyArr(arr, n);
     printf("\nМассив с перевернутыми элементами между минимумом и максимумом: ");
-    reverseBetweenMinAndMax(arr, n);
+    reverseBetweenMinAndMax(copiedArr, n);
+    printArr(copiedArr, n);
+    free(copiedArr);
     printf("\nНомер последней пары соседних элементов с одинаковыми знаками, произведение которых меньше заданного числа: ");
     lessThanX(arr, n, x);
     free(arr);
@@ -244,16 +247,14 @@ void reverseBetweenMinAndMax(int* arr, size_t n) {
         minI++;
         maxI--;
     }
-    printArr(arr, n);
 }
 
 void lessThanX(const int* arr, size_t n, const int x) {
     checkArr(arr);
-    int* copiedArr = copyArr(arr, n);
     int lastPairIndex = -1;
     for (size_t i = 0; i < n - 1; i++) {
-        if ((copiedArr[i] > 0 && copiedArr[i + 1] > 0) || (copiedArr[i] < 0 && copiedArr[i + 1] < 0)) {
-            if (copiedArr[i] * copiedArr[i + 1] < x) {
+        if ((arr[i] > 0 && arr[i + 1] > 0) || (arr[i] < 0 && arr[i + 1] < 0)) {
+            if (arr[i] * arr[i + 1] < x) {
                 lastPairIndex = i;
             }
         }
@@ -263,5 +264,4 @@ void lessThanX(const int* arr, size_t n, const int x) {
     } else {
         printf("Пары не найдено.\n");
     }
-    free(copiedArr);
 }
