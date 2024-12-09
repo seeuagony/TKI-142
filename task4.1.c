@@ -109,6 +109,7 @@ int main(void) {
             fillArrRandomly(arr, n);
             break;
         default:
+            free(arr);
             errno = ERANGE;
             perror("Неверно введена функция");
             exit(EXIT_FAILURE);
