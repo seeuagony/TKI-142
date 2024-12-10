@@ -210,8 +210,8 @@ void oneDigitSum(const int* arr, const size_t n) {
 }
 
 int* copyArr(const int* arr, const size_t n) {
+    checkArr(arr);
     int* copiedArr = createArr(n);
-    checkArr(copiedArr);
     for (size_t i = 0; i < n; i++) {
         copiedArr[i] = arr[i];
     }
@@ -253,10 +253,8 @@ void lessThanX(const int* arr, size_t n, const int x) {
     checkArr(arr);
     int lastPairIndex = -1;
     for (size_t i = 0; i < n - 1; i++) {
-        if ((arr[i] > 0 && arr[i + 1] > 0) || (arr[i] < 0 && arr[i + 1] < 0)) {
-            if (arr[i] * arr[i + 1] < x) {
+        if (arr[i] * arr[i + 1] > 0 && arr[i] * arr[i + 1] < x) {
                 lastPairIndex = i;
-            }
         }
     }
     if (lastPairIndex != -1) {
