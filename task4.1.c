@@ -83,7 +83,7 @@ int* copyArr(const int* arr, const size_t n);
  * @param n размер массива
  * @return измененный масств
  */
-void reverseBetweenMinAndMax(int* arr, size_t n);
+void reverseBetweenMinAndMax(int* arr, const size_t n);
 /**
  * @brief функция, которая ищет номер последней пары соседних элементов с одинаковыми знаками, произведение которых меньше заданного числа.
  * @param arr исходный массив
@@ -93,6 +93,10 @@ void reverseBetweenMinAndMax(int* arr, size_t n);
  */
 void lessThanX(const int* arr, size_t n, const int x);
 
+/**
+ * @brief точка входа в программу
+ * @return 0 в случае успеха
+ */
 int main(void) {
     printf("Введите размер массива: ");
     size_t n = posInput();
@@ -110,6 +114,7 @@ int main(void) {
             break;
         default:
             free(arr);
+            arr = NULL;
             errno = ERANGE;
             perror("Неверно введена функция");
             exit(EXIT_FAILURE);
@@ -218,7 +223,7 @@ int* copyArr(const int* arr, const size_t n) {
     return copiedArr;
 }
 
-void reverseBetweenMinAndMax(int* arr, size_t n) {
+void reverseBetweenMinAndMax(int* arr, const size_t n) {
     checkArr(arr);
     size_t minI = 0;
     size_t maxI = 0;
