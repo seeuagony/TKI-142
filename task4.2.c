@@ -24,7 +24,7 @@ int input(void);
  * @param value вводимое число
  * @return Возвращает: число, если число положительно; ошибку, если число отрицательно
  */
-int posInput(void);
+size_t posInput(void);
 
 /**
  * @brief функция, которая создаёт массив размером n
@@ -127,7 +127,6 @@ int main(void) {
             break;
         default:
             free(arr);
-            arr = NULL;
             errno = ERANGE;
             perror("Неверно введена функция");
             exit(EXIT_FAILURE);
@@ -142,7 +141,7 @@ int main(void) {
     free(copiedArr);
     size_t newSize = findNewSize(arr, n);
     int* arrWithK = insertKAfterEven(arr, n, k);
-    printf("\nМассив, после каждого чётного числа - число K");
+    printf("\nМассив, после каждого чётного числа - число K ");
     printArr(arrWithK, newSize);
     free(arrWithK);
     int* M = createArr(n);
@@ -166,14 +165,14 @@ int input(void) {
     return value;
 }
 
-int posInput(void) {
+size_t posInput(void) {
     int value = input();
     if (value <= 0) {
         errno = EINVAL;
         perror("Ошибка ввода (число должно быть положительным)");
         exit(EXIT_FAILURE);
     }
-    return value;
+    return (size_t)value;
 }
 
 int* createArr(const size_t n) {
@@ -259,7 +258,7 @@ size_t findNewSize(const int* arr, const size_t n) {
 int* insertKAfterEven(const int* arr, size_t n, const int k) {
     size_t newSize = findNewSize(arr, n);
     int* arrWithK = createArr(newSize);
-    checkArr(arrWithK);
+    checkArr(arr);
     size_t a = 0;
     
     for (size_t i = 0; i < n; i++) {
@@ -272,11 +271,10 @@ int* insertKAfterEven(const int* arr, size_t n, const int k) {
 }
 
 void arrFromPtoM(const int* array, int* M, const size_t n) {
-    for (size_t i = 0; i < n; i++) {
-        if (i == 0 || i == (n-1)) {
-            M[i] = 0;
-        }
-        else if ((i + 1) % 4 == 0) {
+    M[0] = 0;
+    M[n - 1] = 0;
+    for (size_t i = 1; i < n-1; i++) {
+        if ((i + 1) % 4 == 0) {
             M[i] = 4 * abs(array[i]);
         }
         else {
