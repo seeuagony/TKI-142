@@ -35,8 +35,8 @@ int main() {
 }
 
 double getA(const double x, const double y, const double z) {
-	return ((pow(z, 2) * x) + exp(-x) * (cos(y * x)))) / y*x - exp(-x)*sin(y*x) + 1;
+	return ((pow(z, 2) * x) + exp(-x) * (cos(y * x))) / y*x - exp(-x)*sin(y*x) + 1;
 }
 double getB(const double x, const double y, const double z) {
-	return exp(2*x) * log(z + x)) - (pow(y, 3 * x) * log(y - x));
+	return exp(2*x) * log(z + x) - (pow(y, 3 * x) * log(y - x));
 }
